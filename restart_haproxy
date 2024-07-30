@@ -1,0 +1,9 @@
+docker stop haproxy; docker rm haproxy; docker run -d \
+   --name haproxy \
+   --net mynetwork \
+   -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
+   -v $(pwd)/blocks.lua:/usr/local/etc/haproxy/blocks.lua:ro \
+   -v $(pwd)/path_status.map:/usr/local/etc/haproxy/path_status.map:rw \
+   -p 80:80 \
+   -p 8404:8404 \
+   haproxytech/haproxy-alpine:2.4; docker ps
