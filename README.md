@@ -17,7 +17,7 @@ This particular POC matches **just** on path but it could be extended to match o
 
 ## How does it work?
 
-Our haproxy config defines a map, TODO, that defines known invalid paths. Then, at runtime, the backend can signal with a header, TODO, that a new path should be added to that list. When HAProxy gets that header, it dynamically adds it to the map using Lua and then runtime API. Going forwards, requests that match that rule will get blocked at the edge and the backend need not deal with it.
+Our haproxy config defines a map, `path_status.map`, that defines known invalid paths. Then, at runtime, the backend can signal with a header, `X-GitHub-Edge-Resource`, that a new path should be added to that list. When HAProxy gets that header, it dynamically adds it to the map using Lua and then runtime API. Going forwards, requests that match that rule will get blocked at the edge and the backend need not deal with it.
 
 ## Next steps
 
