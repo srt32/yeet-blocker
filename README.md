@@ -27,6 +27,27 @@ Our haproxy config defines a map, `path_status.map`, that defines known invalid 
 * How might we expire keys (without requiring full deploy)?
 * Probably a lot more
 
+## The flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant HAProxy
+    participant Backend
+
+    User->>HAProxy: GET /yolo
+    HAProxy->>Backend: GET /yolo
+    Backend-->>HAProxy: 200 OK
+    HAProxy-->>User: 200 OK
+
+    User->>HAProxy: GET /yeet
+    HAProxy->>Backend: GET /yeet
+    Backend-->>HAProxy: 404 Not Found (X-GitHub-Edge-Resource: false)
+    HAProxy-->>User: 404 Not Found
+
+    User->>HAProxy: GET /yeet
+    HAProxy-->>User: 404 Not Found (Blocked without going to the backend)
+```
 
 ------------------------
 
