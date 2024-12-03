@@ -6,11 +6,11 @@ core.register_action("process_response", { "http-res" }, function(txn)
   local headers = txn.http:res_get_headers()
 
   -- TODO: Add error handling for missing header
-  local backend_directive = headers["x-github-edge-resource"][0]
+  local backend_directive = headers["x-edge-resource"][0]
 
   -- check if backend_directive is not nil
   if backend_directive then
-    core.log(core.info, "X-GitHub-Edge-Resource: " .. backend_directive)
+    core.log(core.info, "X-Edge-Resource: " .. backend_directive)
     -- split the string on dash
     local parts = {}
     for part in string.gmatch(backend_directive, "([^%-]+)") do
@@ -26,6 +26,6 @@ core.register_action("process_response", { "http-res" }, function(txn)
         core.set_map("/etc/haproxy/path_status.map", txn:get_var("txn.ghpath"), 404)
     end
   else
-    core.log(core.info, "X-GitHub-Edge-Resource: none-provided")
+    core.log(core.info, "X-Edge-Resource: none-provided")
   end
 end)

@@ -11,7 +11,7 @@ func main() {
 
 	http.HandleFunc("/yeet", func(w http.ResponseWriter, r *http.Request) {
 		println("yeet called")
-		w.Header().Set("X-GitHub-Edge-Resource", "false-404")
+		w.Header().Set("X-Edge-Resource", "false-404")
 		w.WriteHeader(http.StatusNotFound)
 	})
 
